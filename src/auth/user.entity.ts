@@ -1,6 +1,13 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
-@Entity() // This decorator tells TypeORM that this class represents a table in your database
+@Entity()
+@Unique(['username'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,5 +16,8 @@ export class User extends BaseEntity {
   username: string;
 
   @Column()
-  password: string; // hashed password
+  password: string;
+
+  @Column()
+  salt: string;
 }
