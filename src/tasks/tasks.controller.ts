@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   ParseIntPipe,
   Patch,
@@ -25,6 +26,8 @@ import { User } from 'src/auth/user.entity';
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
+  private logger = new Logger('TasksController');
+
   constructor(private tasksService: TasksService) {}
 
   @Get()
@@ -36,6 +39,10 @@ export class TasksController {
   ): Promise<Task[]> {
     user = req.user;
 
+    this.logger.verbose(
+      `User "${user.username}" retrieving all tasks. Filters: ${JSON.stringify(filterDto)}`,
+    );
+
     return this.tasksService.getTasks(filterDto, user);
   }
 
@@ -46,6 +53,11 @@ export class TasksController {
     user: User,
   ): Promise<Task> {
     user = req.user;
+
+    this.logger.verbose(
+      `User "${user.username}" retrieving a task with id ${id}.`,
+    );
+
     return this.tasksService.getTaskById(id, user);
   }
 
@@ -57,6 +69,11 @@ export class TasksController {
     user: User,
   ): Promise<Task> {
     user = req.user;
+
+    this.logger.verbose(
+      `User "${user.username}" creating a new task. Data: ${JSON.stringify(createTaskDto)}`,
+    );
+
     return this.tasksService.createTask(createTaskDto, user);
   }
 
@@ -67,6 +84,11 @@ export class TasksController {
     user: User,
   ): { msg: string } {
     user = req.user;
+
+    this.logger.verbose(
+      `User "${user.username}" deleting a task with id ${id}.`,
+    );
+
     this.tasksService.deleteTask(id, user);
     return { msg: 'Task deleted successfully' };
   }
@@ -79,6 +101,11 @@ export class TasksController {
     user: User,
   ): Promise<Task> {
     user = req.user;
+
+    this.logger.verbose(
+      `User "${user.username}" updating a task status with id ${id}. Status now is ${status}`,
+    );
+
     return this.tasksService.updateTaskStatus(id, status, user);
   }
 }

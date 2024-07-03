@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -26,7 +27,7 @@ export class AuthController {
     return this.authService.signIn(authCredentialsDto);
   }
 
-  @Post('/getMe')
+  @Get('/getMe')
   @UseGuards(AuthGuard())
   test(@Req() req) {
     // log logged in user
