@@ -24,5 +24,8 @@ export class Task extends BaseEntity {
 
   // many users to one user
   @ManyToOne((type) => User, (user) => user.tasks, { eager: false })
-  user: User; // This is a one-to-many relationship with the User entity. The 'eager:false' option tells TypeORM to not load this relationship when fetching tasks. It's useful when you only need to fetch tasks for a specific user, not all tasks.
+  user: User;
+
+  @Column()
+  userId: number;
 }
