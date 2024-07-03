@@ -40,8 +40,13 @@ export class TasksController {
   }
 
   @Get('/:id')
-  getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
-    return this.tasksService.getTaskById(id);
+  getTaskById(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req,
+    user: User,
+  ): Promise<Task> {
+    user = req.user;
+    return this.tasksService.getTaskById(id, user);
   }
 
   @Post()
@@ -56,8 +61,13 @@ export class TasksController {
   }
 
   @Delete('/:id')
-  deleteTask(@Param('id', ParseIntPipe) id: number): { msg: string } {
-    this.tasksService.deleteTask(id);
+  deleteTask(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req,
+    user: User,
+  ): { msg: string } {
+    user = req.user;
+    this.tasksService.deleteTask(id, user);
     return { msg: 'Task deleted successfully' };
   }
 
@@ -65,7 +75,10 @@ export class TasksController {
   updateTaskStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+    @Req() req,
+    user: User,
   ): Promise<Task> {
-    return this.tasksService.updateTaskStatus(id, status);
+    user = req.user;
+    return this.tasksService.updateTaskStatus(id, status, user);
   }
 }
