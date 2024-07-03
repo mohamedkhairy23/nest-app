@@ -19,4 +19,12 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
-  
+
+## Endpoints:
+- SignUp (create user).
+- SignIn (authentication with JWT and authorization with JWT and Passport for middlewares).
+- Get Logged In user tasks.
+- Get a specific Logged In user task.
+- A logged in user can create a task.
+- A logged in user can delete a task.
+- A logged in can update a task status.
